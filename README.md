@@ -5,7 +5,8 @@ This AddOn is a GearScore alike item rating. It includes a small database of the
 ![character](https://raw.githubusercontent.com/shagu/ShaguAddons/master/_img/ShaguScore/character.jpg)
 
 ## Installation
-1. Download **[Latest Version](https://github.com/shagu/ShaguScore/archive/master.zip)**
+This fork requires Pepopo's version of nampower at https://github.com/pepopo978/nampower
+1. Download 
 2. Unpack the Zip file
 3. Rename the folder "ShaguScore-master" to "ShaguScore"
 4. Copy "ShaguScore" into Wow-Directory\Interface\AddOns
