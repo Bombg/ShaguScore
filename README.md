@@ -7,7 +7,8 @@ I also set this addon up so it can also collect itemlevel data that can eventual
 # How to help
 - Play Turtle WoW
 - add items you don't think should have a score to the blacklist with '/ssb itemlink' WHERE itemlink is the actual shift click link of the item.
-- After you've collected a few weeks of data share your 'WTF\Account\'YOURACCOUNT'\SavedVariables\ShaguScore.lua' in an issues post
+    - Use the command again to remove item from blacklist
+- After you've collected a few weeks of data share your 'WTF\Account\ 'YOURACCOUNT' \SavedVariables\ShaguScore.lua' in an issues post
 
 # ShaguScore
 This AddOn is a GearScore alike item rating. It includes a small database of the itemLevels of all items available in classic up to Naxxramas. Those values are are printed as score, similar to GearScore. Please don't take those values to serious, in vanilla the itemLevel is worth nothing.
