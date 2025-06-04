@@ -1,0 +1,28 @@
+{
+    "Lua.diagnostics.globals": [
+        "GameTooltip",
+        "TargetHPText",
+        "TargetHPPercText",
+        "GetTradeTargetItemLink",
+        "GetAuctionSellItemInfo",
+        "GetAuctionItemInfo",
+        "GetTradeSkillItemLink",
+        "GetTradeSkillReagentItemLink",
+        "GetCraftItemLink",
+        "GetCraftReagentItemLink",
+        "GetMerchantItemLink",
+        "GetLootRollItemLink",
+        "GetInboxItem",
+        "GetInventoryItemLink",
+        "GetLootSlotLink",
+        "GetQuestItemLink",
+        "GetContainerItemInfo",
+        "GetContainerItemLink",
+        "GetItemQualityColor",
+        "CreateFrame",
+        "CharacterModelFrame",
+        "InspectModelFrame",
+        "GetItemInfo",
+        "GetTradePlayerItemLink"
+    ]
+}

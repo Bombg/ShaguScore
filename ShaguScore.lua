@@ -16,6 +16,7 @@ ShaguScore:SetScript("OnShow", function()
     if not itemLink then return end
 
     local itemLevel = GetItemLevel(tonumber(itemID)) or 0
+    ShaguScore.Database[tonumber(itemID)] = itemLevel
     local _, _, itemRarity, _, _, _, _, itemSlot, _ = GetItemInfo(itemLink)
     local r,g,b = GetItemQualityColor(itemRarity)
 
@@ -112,6 +113,7 @@ function ShaguScore:ScanUnit(target)
       local _, _, itemLink = string.find(GetInventoryItemLink(target, i), "(item:%d+:%d+:%d+:%d+)");
 
       local itemLevel = GetItemLevel(tonumber(itemID)) or 0
+      ShaguScore.Database[tonumber(itemID)] = itemLevel
       local _, _, itemRarity, _, _, _, _, itemSlot, _ = GetItemInfo(itemLink)
       local r, g, b = .2, .2, .2
 
