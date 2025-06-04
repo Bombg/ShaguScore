@@ -291,10 +291,12 @@ SlashCmdList["SSB"] = function(msg)
   local itemString = ShaguScore.ItemLinkToItemString(msg)
   local itemId, enchantId, suffixId, uniqueId = ShaguScore.GetItemStringParts(itemString)
   if not itemId then return end
-  if DBBlacklist[itemId] == nil then
-    DBBlacklist[itemId] = 0
+  if DBBlacklist[tonumber(itemId)] == nil then
+    DBBlacklist[tonumber(itemId)] = 0
+    ShaguScore.Database[tonumber(itemId)] = nil
   else
-    DBBlacklist[itemId] = nil
+    DBBlacklist[tonumber(itemId)] = nil
+    ShaguScore.Database[tonumber(itemId)] = GetItemLevel(tonumber(itemId))
   end
   
 end 
