@@ -3,5 +3,6 @@
 ## Author: Shagu, 2015-2017
 ## Notes: Display Gear-Rating based on ItemLevel and Color
 ## Version: 2.0
+## SavedVariables: DBHelper
 ShaguScore.lua
 Database.lua

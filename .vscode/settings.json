@@ -23,6 +23,15 @@
         "CharacterModelFrame",
         "InspectModelFrame",
         "GetItemInfo",
-        "GetTradePlayerItemLink"
+        "GetTradePlayerItemLink",
+        "BCSFrame",
+        "floor",
+        "UnitIsPlayer",
+        "GetQuestLogItemLink",
+        "event"
+    ],
+    "Lua.diagnostics.disable": [
+        "cast-local-type",
+        "duplicate-set-field"
     ]
 }

@@ -1,10 +1,16 @@
 ShaguScore = CreateFrame( "Frame" , "ShaguScoreTooltip", GameTooltip )
 ShaguScore:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
+ShaguScore:RegisterEvent("VARIABLES_LOADED")
 ShaguScore:SetScript("OnEvent", function()
   score, r, g, b = ShaguScore:ScanUnit("mouseover")
-  if score and r and g and b then
+  if event == "UPDATE_MOUSEOVER_UNIT" and score and r and g and b then
     GameTooltip:AddLine("ShaguScore: " .. score, r,g,b)
     GameTooltip:Show()
+  elseif event == "VARIABLES_LOADED" then
+    if not DBHelper then DBHelper = {} end
+    for k, v in pairs(DBHelper) do
+      ShaguScore.Database[k] = v
+    end
   end
 end)
 
@@ -16,7 +22,12 @@ ShaguScore:SetScript("OnShow", function()
     if not itemLink then return end
 
     local itemLevel = GetItemLevel(tonumber(itemID)) or 0
-    ShaguScore.Database[tonumber(itemID)] = itemLevel
+    if ShaguScore.Database[tonumber(itemID)] == nil then
+      ShaguScore.Database[tonumber(itemID)] = itemLevel
+      DBHelper[tonumber(itemID)] = itemLevel
+    else
+      DBHelper[tonumber(itemID)] = nil
+    end
     local _, _, itemRarity, _, _, _, _, itemSlot, _ = GetItemInfo(itemLink)
     local r,g,b = GetItemQualityColor(itemRarity)
 
@@ -113,7 +124,12 @@ function ShaguScore:ScanUnit(target)
       local _, _, itemLink = string.find(GetInventoryItemLink(target, i), "(item:%d+:%d+:%d+:%d+)");
 
       local itemLevel = GetItemLevel(tonumber(itemID)) or 0
-      ShaguScore.Database[tonumber(itemID)] = itemLevel
+      if ShaguScore.Database[tonumber(itemID)] == nil then
+        ShaguScore.Database[tonumber(itemID)] = itemLevel
+        DBHelper[tonumber(itemID)] = itemLevel
+      else
+        DBHelper[tonumber(itemID)] = nil
+      end
       local _, _, itemRarity, _, _, _, _, itemSlot, _ = GetItemInfo(itemLink)
       local r, g, b = .2, .2, .2
 
