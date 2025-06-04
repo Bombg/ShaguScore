@@ -1,3 +1,4 @@
+MaxClassicItemID = 19491
 ShaguScore = CreateFrame( "Frame" , "ShaguScoreTooltip", GameTooltip )
 ShaguScore:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 ShaguScore:RegisterEvent("VARIABLES_LOADED")
@@ -8,6 +9,7 @@ ShaguScore:SetScript("OnEvent", function()
     GameTooltip:Show()
   elseif event == "VARIABLES_LOADED" then
     if not DBHelper then DBHelper = {} end
+    if not DBBlacklist then DBBlacklist = {} end
     for k, v in pairs(DBHelper) do
       ShaguScore.Database[k] = v
     end
@@ -22,7 +24,7 @@ ShaguScore:SetScript("OnShow", function()
     if not itemLink then return end
 
     local itemLevel = GetItemLevel(tonumber(itemID)) or 0
-    if ShaguScore.Database[tonumber(itemID)] == nil then
+    if DBBlacklist[tonumber(itemID)] == nil and tonumber(itemID) > MaxClassicItemID and ShaguScore.Database[tonumber(itemID)] == nil then
       ShaguScore.Database[tonumber(itemID)] = itemLevel
       DBHelper[tonumber(itemID)] = itemLevel
     else
@@ -124,7 +126,7 @@ function ShaguScore:ScanUnit(target)
       local _, _, itemLink = string.find(GetInventoryItemLink(target, i), "(item:%d+:%d+:%d+:%d+)");
 
       local itemLevel = GetItemLevel(tonumber(itemID)) or 0
-      if ShaguScore.Database[tonumber(itemID)] == nil then
+      if DBBlacklist[tonumber(itemID)] == nil and tonumber(itemID) > MaxClassicItemID and ShaguScore.Database[tonumber(itemID)] == nil then
         ShaguScore.Database[tonumber(itemID)] = itemLevel
         DBHelper[tonumber(itemID)] = itemLevel
       else
@@ -161,6 +163,18 @@ function ShaguScore:GetItemLinkByName(name)
       return hex.. "|H"..hyperLink.."|h["..itemName.."]|h|r"
     end
   end
+end
+
+function ShaguScore.ItemLinkToItemString(ItemLink)
+  if not ItemLink then return end
+  local il, _, ItemString = strfind(ItemLink, "^|%x+|H(.+)|h%[.+%]")
+  return il and ItemString or ItemLink
+end
+
+function ShaguScore.GetItemStringParts(ItemString)
+    local regex = "item:(%d+):(%d+):(%d+):(%d+)"
+    local itemId, enchantId, suffixId, uniqueId = string.match(ItemString, regex)
+    return itemId, enchantId, suffixId, uniqueId
 end
 
 -- hooks
@@ -270,6 +284,20 @@ function GameTooltip.SetTradeTargetItem(self, index)
   GameTooltip.itemLink = GetTradeTargetItemLink(index)
   return ShaguScoreHookSetTradeTargetItem(self, index)
 end
+
+-- command
+SLASH_SSB1 = "/ssb"
+SlashCmdList["SSB"] = function(msg)
+  local itemString = ShaguScore.ItemLinkToItemString(msg)
+  local itemId, enchantId, suffixId, uniqueId = ShaguScore.GetItemStringParts(itemString)
+  if not itemId then return end
+  if DBBlacklist[itemId] == nil then
+    DBBlacklist[itemId] = 0
+  else
+    DBBlacklist[itemId] = nil
+  end
+  
+end 
 
 -- database
 ShaguScore.Database = {}
